@@ -3,7 +3,8 @@ import './App.css'
 import Intro from "./components/Intro.tsx"
 import Quiz from "./components/Quiz.tsx"
 import Outro from "./components/Outro.tsx"
-import Confetti from "react-confetti";
+import Confetti from "react-confetti"
+import musicData from "./assets/indieRockSongs.json"
 
 enum Page {
   INTRO = "INTRO",
@@ -24,86 +25,7 @@ export interface MusicData {
 }
 
 function getMusicData(): MusicData[] {
-  return [
-    {
-      id: 11,
-      lyrics: "1. Lorem Lorem Lorem Lorem Lorem Lorem Lorem Ipsum Ipsum Ipsum Ipsum Ipsum",
-      answers: [
-        {
-          id: 1,
-          songName: "Lorem Ipsum",
-          isCorrect: false,
-        },
-        {
-          id: 2,
-          songName: "Lorem",
-          isCorrect: false,
-        },
-        {
-          id: 3,
-          songName: "Ipsum",
-          isCorrect: true,
-        },
-        {
-          id: 4,
-          songName: "Lorem Lorem",
-          isCorrect: false,
-        },
-      ]
-    },
-    {
-      id: 22,
-      lyrics: "2. Ipsum",
-      answers: [
-        {
-          id: 1,
-          songName: "Lor Ips",
-          isCorrect: true,
-        },
-        {
-          id: 2,
-          songName: "Ipsum",
-          isCorrect: false,
-        },
-        {
-          id: 3,
-          songName: "Lor",
-          isCorrect: false,
-        },
-        {
-          id: 4,
-          songName: "Lorem Lorem",
-          isCorrect: false,
-        },
-      ]
-    },
-    {
-      id: 33,
-      lyrics: "3. Lorem Lorem Lorem Ipsum",
-      answers: [
-        {
-          id: 1,
-          songName: "Lorem Ipsum",
-          isCorrect: false,
-        },
-        {
-          id: 2,
-          songName: "Ipsum Ipsum Ipsum",
-          isCorrect: false,
-        },
-        {
-          id: 3,
-          songName: "Lorem Ipsum",
-          isCorrect: true,
-        },
-        {
-          id: 4,
-          songName: "Lorem Lorem",
-          isCorrect: false,
-        },
-      ]
-    }
-  ];
+  return musicData;
 }
 
 function App() {
