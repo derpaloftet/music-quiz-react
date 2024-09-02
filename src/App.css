@@ -1,42 +1,166 @@
-#root {
-  max-width: 1280px;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html, body {
+  height: 100%;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  background-color: burlywood;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+body {
+  background-image: url("src/images/abstract_background.jpg");
+  background-size: 350%;
+
+  background-position: bottom;
+  background-repeat: no-repeat;
+  font-family: 'Karla', sans-serif;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 90%;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+/* Mobile */
+
+.main-image {
+  width: 60%;
+  height: auto;
+  margin-bottom: 2em;
+}
+.intro-header, .outro-header {
+  color: #FA5A3B;
+}
+.intro-emphasized {
+  color: #92A0A9;
+  animation: colorChange 6s infinite;
+}
+@keyframes colorChange {
+  0% { color: #5286BF; }
+  50% { color: #894D4C; }
+  100% { color: #2F3C4A; }
+}
+
+.intro-header span, .outro-header span {
+  font-family: 'Arvo', 'sans-serif';
+  font-weight: bold;
+  display: block;
+  font-size: 1.9em;
+  padding-right: .3em;
+}
+
+/* Intro */
+
+.btn-basic {
+  @apply inline-block rounded bg-slate-700 px-8 py-3 text-base font-medium text-slate-50 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-slate-500;
+  letter-spacing: .1em;
+  font-family: 'Arvo', 'sans-serif';
+}
+
+/* Quiz */
+.answer-default {
+  background-color: lightslategrey;
+}
+
+.answer-correct {
+  background-color: darkseagreen;
+}
+
+.answer-wrong {
+  background-color: indianred;
+}
+
+.answers-variants{
+  display: flex;
+  flex-direction: column;
+  gap: .4em;
+  margin-bottom: 1em;
+}
+.main--content {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+}
+.finish-message {
+  font-family: 'Arvo', 'sans-serif';
+  font-size: 2em;
+  font-weight: bold;
+  color: #2F3C4A;
+}
+.quiz-score {
+  display: inline-block;
+  padding: .7em 1em;
+  max-width: 60%;
+  border-radius: 8px;
+  background-color: #EFBC6B;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Nerko One', 'sans-serif';
+  font-size: 1.2em;
+  color: #061F56;
+}
+.quiz-content {
+  background-color: #A6B4BD;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  padding: 1.2em;
+  height: 500px;
+  width: 500px;
+}
+.lyrics-current {
+  font-size: 1.1em;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  padding: .7em 1em;
+}
+.quiz-lyrics, .quiz-answers {
+  font-family: 'Nerko One', 'sans-serif';
+  font-size: 1.5em;
+  color: #061F56;
+
+}
+.btn-next {
+  @apply inline-block rounded-full bg-amber-900 text-blue-200 hover:text-gray-300 focus:outline-none focus:ring active:text-opacity-75;
+  @apply px-6 py-2 font-semibold mt-3 font-nerko text-xl;
+}
+.btn-answer {
+  @apply inline-block rounded bg-slate-500 px-8 py-3 text-base font-medium text-slate-50 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-slate-500;
+}
+
+/* Desktop */
+
+@media(min-width: 760px) {
+
+  body {
+    width: 70%;
+    background-color: cadetblue;
+    flex-direction: row;
   }
-  to {
-    transform: rotate(360deg);
+  .quiz-answers{
+    display: flex;
+    flex-direction: row;
   }
-}
+  .intro-header, .outro-header {
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+
   }
-}
+  .intro-header span, .outro-header span {
+    display: inline-block;
+    white-space: nowrap;
+  }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
