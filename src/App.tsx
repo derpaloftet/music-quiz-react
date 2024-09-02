@@ -1,10 +1,9 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import './App.css'
 import Intro from "./components/Intro.tsx"
 import Quiz from "./components/Quiz.tsx"
 import Outro from "./components/Outro.tsx"
 import Confetti from "react-confetti"
-import musicData from "./assets/indieRockSongs.json"
 
 enum Page {
   INTRO = "INTRO",
@@ -24,15 +23,20 @@ export interface MusicData {
   answers: Answer[]
 }
 
-function getMusicData(): MusicData[] {
-  return musicData;
-}
-
 function App() {
   const [currentPage, setCurrentPage] = useState(Page.INTRO)
   const [scoreState, setScoreState] = useState(0)
+  const [musicData, setMusicData] = useState([] as MusicData[])
 
-  const musicData = getMusicData()
+  useEffect(() => {
+    async function getMusicData(): Promise<MusicData[]> {
+      const res = await fetch("./src/assets/indieRockSongs.json")
+      return await res.json() as MusicData[]
+    }
+
+    getMusicData().then((data) => setMusicData(data))
+  }, [])
+
   let content
 
   switch (currentPage) {
@@ -59,10 +63,10 @@ function App() {
 
   return (
     <>
-    {currentPage === Page.OUTRO && <Confetti/>}
-    <div className={"main--content"}>
-      {content}
-    </div>
+      {currentPage === Page.OUTRO && <Confetti/>}
+      <div className={"main--content"}>
+        {content}
+      </div>
     </>
   )
 
