@@ -4,9 +4,12 @@ import Intro from "./components/Intro.tsx"
 import Quiz from "./components/Quiz.tsx"
 import Outro from "./components/Outro.tsx"
 import Confetti from "react-confetti"
+import Genre from "./components/Genre.tsx";
+
 
 enum Page {
   INTRO = "INTRO",
+  GENRE = "GENRE",
   QUIZ = "QUIZ",
   OUTRO = "OUTRO"
 }
@@ -27,13 +30,15 @@ function App() {
   const [currentPage, setCurrentPage] = useState(Page.INTRO)
   const [scoreState, setScoreState] = useState(0)
   const [musicData, setMusicData] = useState([] as MusicData[])
+  // todo: add genre
 
   useEffect(() => {
+    // todo: use genre
     async function getMusicData(): Promise<MusicData[]> {
-      const res = await fetch("./src/assets/indieRockSongs.json")
+      const res = await fetch("./src/assets/pop1990Songs.json")
       return await res.json() as MusicData[]
     }
-
+//./src/assets/indieRockSongs.json
     getMusicData().then((data) => setMusicData(data))
   }, [])
 
@@ -41,7 +46,10 @@ function App() {
 
   switch (currentPage) {
     case Page.INTRO:
-      content = <Intro buttonClick={() => setCurrentPage(Page.QUIZ)}/>
+      content = <Intro buttonClick={() => setCurrentPage(Page.GENRE)}/>
+      break
+    case Page.GENRE:
+      content = <Genre buttonClick={() => setCurrentPage(Page.QUIZ)}/>
       break
     case Page.QUIZ:
       content = <Quiz

@@ -599,6 +599,13 @@ body {
   margin-bottom: 2em;
 }
 
+.main--content {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  align-items: center;
+}
+
 .intro-header, .outro-header {
   color: #FA5A3B;
 }
@@ -680,6 +687,25 @@ body {
   font-family: 'Arvo', 'sans-serif';
 }
 
+/* Genre */
+
+.genre-message {
+  font-family: 'Arvo', 'sans-serif';
+  font-size: 2.2em;
+  font-weight: bold;
+  color: #FA5A3B;
+}
+
+.genre-image {
+  width: 30%;
+}
+
+.genre-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
 /* Quiz */
 
 .answer-default {
@@ -701,11 +727,22 @@ body {
   margin-bottom: 1em;
 }
 
-.main--content {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  align-items: center;
+.attempts-image {
+  width: 80%;
+}
+
+.attempts-message {
+  font-family: 'Arvo', 'sans-serif';
+  font-size: 1em;
+  font-weight: bold;
+  color: #2F3C4A;
+  margin-top: .8em;
+  margin-bottom: .8em;
+}
+
+.attempts-emphasized {
+  color: white;
+  letter-spacing: .1em;
 }
 
 .finish-message {
@@ -737,7 +774,7 @@ body {
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
   padding: 1.2em;
-  height: 500px;
+  height: 530px;
   width: 500px;
 }
 

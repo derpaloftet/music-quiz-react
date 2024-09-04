@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "lyrics": "Pop Punk",
+    "answers": [
+      {
+        "id": 1,
+        "songName": "The Strokes - Last Nite",
+        "isCorrect": false
+      },
+      {
+        "id": 2,
+        "songName": "Arctic Monkeys - I Bet You Look Good on the Dancefloor",
+        "isCorrect": false
+      },
+      {
+        "id": 3,
+        "songName": "The Killers - Somebody Told Me",
+        "isCorrect": true
+      },
+      {
+        "id": 4,
+        "songName": "Franz Ferdinand - Take Me Out",
+        "isCorrect": false
+      }
+    ]
+  }
+]

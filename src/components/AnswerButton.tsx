@@ -1,8 +1,13 @@
 import {Answer} from "../App.tsx";
 
 
-export default function AnswerButton({answerState, setAnswerState, setScoreState, answer}:
-{answerState: number, setAnswerState: (state: number) => void, setScoreState: (state: (prevState: number) => number) => void, answer: Answer }) {
+export default function AnswerButton({answerState, setAnswerState, setScoreState, answer, setAttemptsState}:
+{
+  answerState: number,
+  setAnswerState: (state: number) => void,
+  setScoreState: (state: (prevState: number) => number) => void,
+  answer: Answer,
+  setAttemptsState: (state: number) => void}) {
 
   let classNameColor: string;
   if (!answerState) {
@@ -24,17 +29,17 @@ export default function AnswerButton({answerState, setAnswerState, setScoreState
     }
   }
 
-
   return <button key={answer.id}
                  className={`btn-answer ${classNameColor}`}
                  disabled={answerState !== 0}
                  onClick={() => {
                    setAnswerState(answer.id)
                    if (answer.isCorrect) {
-                     setScoreState(prevState => prevState + 1);
+                     setScoreState(prevState => prevState + 1)
+                   } else if (!answer.isCorrect) {
+                     setAttemptsState(prevState => prevState - 1)
                    }
                  }}>
     {answer.songName}
   </button>
-
 }
