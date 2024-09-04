@@ -39,6 +39,7 @@ function App() {
       return await res.json() as MusicData[]
     }
 //./src/assets/indieRockSongs.json
+    //./src/assets/pop1990Songs.json
     getMusicData().then((data) => setMusicData(data))
   }, [])
 

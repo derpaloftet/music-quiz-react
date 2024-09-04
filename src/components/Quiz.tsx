@@ -51,18 +51,11 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
       <div className="finish-message">Wow! No more questions left! Press Finish to see your final score!</div>
     </>
   )
-  const noAttemptsElements = (
-    <>
-      <img className="attempts-image" src="src/images/sad_cat.jpg" alt="Sad Cat Image"/>
-      <div className="attempts-message">
-        <div>Sadly no more attempts left!</div>
-        <div>Press <span className="attempts-emphasized">FINISH</span> to see your final score: </div>
-      </div>
-    </>)
   const quizElements = (
     <>
       <div className="quiz-score">Current Score: {scoreState}</div>
       <div className="quiz-content">
+
             <div className="quiz-lyrics">Lyrics:</div>
             <div className="lyrics-current">{currentQuestion.lyrics}</div>
             <div className="quiz-answers">Answers:</div>
@@ -77,22 +70,19 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
             }) : null}
             </div>
         {allQuestions.length && attemptsState ? nextButton : finishButton}
-            <div className="attempts-message">Attempts left: {attemptsState}</div>
+        {allQuestions.length && attemptsState ? <div className="attempts-message">Attempts left: {attemptsState}</div> :
+          <div className="attempts-message">
+            <div>Sadly no more attempts left!</div>
+            <div>Press <span className="attempts-emphasized">FINISH</span> to see your final score:</div>
+          </div>
+      }
+
       </div>
     </>
   )
-  let renderElements
-  if (allQuestions.length > 0 && attemptsState > -1) {
-    renderElements = quizElements
-  } else if (!attemptsState) {
-    renderElements = noAttemptsElements
-  } else if (allQuestions.length < 1) {
-    renderElements = finishElements
-  }
-
   return (
-    <>
-      {renderElements}
-    </>
-  )
-}
+      <>
+        {allQuestions.length > 0 ? quizElements : finishElements}
+      </>
+      )
+      }
