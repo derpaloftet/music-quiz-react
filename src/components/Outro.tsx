@@ -1,5 +1,7 @@
-
-export default function Outro({scoreState, buttonClickPlayAgain} : {scoreState: number, buttonClickPlayAgain: () => void}) {
+export default function Outro({scoreState, buttonClickPlayAgain}: {
+  scoreState: number,
+  buttonClickPlayAgain: () => void
+}) {
   return (
     <>
       <img className="main-image" src="src/images/vinylDrawing.png" alt="Vinyl image"/>

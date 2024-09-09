@@ -5,27 +5,13 @@ import Quiz from "./components/Quiz.tsx"
 import Outro from "./components/Outro.tsx"
 import Genre from "./components/Genre.tsx";
 import Confetti from "react-confetti"
-import {GenreKeys} from "./types.ts";
-
-
+import {GenreKeys, MusicData} from "./types.ts";
 
 enum Page {
   INTRO = "INTRO",
   GENRE = "GENRE",
   QUIZ = "QUIZ",
   OUTRO = "OUTRO"
-}
-
-export interface Answer {
-  id: number;
-  songName: string;
-  isCorrect: boolean;
-}
-
-export interface MusicData {
-  id: number;
-  lyrics: string;
-  answers: Answer[]
 }
 
 function App() {
@@ -56,17 +42,17 @@ function App() {
 
   switch (currentPage) {
     case Page.INTRO:
-      content = <Intro buttonClick={() => setCurrentPage(Page.GENRE)}/>
+      content = <Intro buttonClickStart={() => setCurrentPage(Page.GENRE)}/>
       break
     case Page.GENRE:
-      content = <Genre buttonGenreClick={handleButtonGenreClick}/>
+      content = <Genre buttonClickGenre={handleButtonGenreClick}/>
       break
     case Page.QUIZ:
       content = <Quiz
         musicData={musicData}
         scoreState={scoreState}
-        buttonClickFinish={() => setCurrentPage(Page.OUTRO)}
         setScoreState={setScoreState}
+        buttonClickFinish={() => setCurrentPage(Page.OUTRO)}
       />
       break
     case Page.OUTRO:
@@ -87,7 +73,6 @@ function App() {
       </div>
     </>
   )
-
 }
 
 export default App

@@ -1,17 +1,17 @@
-import {Answer} from "../App.tsx";
+import {Answer} from "../types.ts";
 
-export default function AnswerButton({answerState, answer, handleAnswerButtonClick}:
+export default function AnswerButton({answeredId, answer, handleAnswerButtonClick}:
                                        {
-                                         answerState: number,
+                                         answeredId: number,
                                          answer: Answer,
-                                         handleAnswerButtonClick: ()=> void
+                                         handleAnswerButtonClick: () => void
                                        }) {
 
   let classNameColor: string;
-  if (!answerState) {
+  if (!answeredId) {
     // nothing is clicked
     classNameColor = "answer-default";
-  } else if (answerState === answer.id) {
+  } else if (answeredId === answer.id) {
     // clicked button
     if (answer.isCorrect) {
       classNameColor = "answer-correct";
@@ -29,7 +29,7 @@ export default function AnswerButton({answerState, answer, handleAnswerButtonCli
 
   return <button key={answer.id}
                  className={`btn-answer ${classNameColor}`}
-                 disabled={answerState !== 0}
+                 disabled={answeredId !== 0}
                  onClick={handleAnswerButtonClick}
   >
     {answer.songName}
