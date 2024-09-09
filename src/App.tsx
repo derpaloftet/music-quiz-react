@@ -7,6 +7,8 @@ import Genre from "./components/Genre.tsx";
 import Confetti from "react-confetti"
 import {GenreKeys} from "./types.ts";
 
+
+
 enum Page {
   INTRO = "INTRO",
   GENRE = "GENRE",
@@ -40,11 +42,16 @@ function App() {
 
   async function handleButtonGenreClick(genre: GenreKeys): Promise<void> {
     const genreUrl = dataPath[genre]
-    const response = await fetch(genreUrl)
-    const result = await response.json() as MusicData[]
-    setMusicData(result)
-    setCurrentPage(Page.QUIZ)
+    try {
+      const response = await fetch(genreUrl)
+      const result = await response.json() as MusicData[]
+      setMusicData(result)
+      setCurrentPage(Page.QUIZ)
+    } catch (error) {
+      console.error("Error fetching music data:", error)
+    }
   }
+
   let content
 
   switch (currentPage) {
