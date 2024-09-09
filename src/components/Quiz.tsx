@@ -39,6 +39,16 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
       setAllQuestions([])
     }
   }
+
+  function handleAnswerButtonClick(answer: Answer) {
+    setAnswerState(answer.id)
+    if (answer.isCorrect) {
+      setScoreState(prevState => prevState + 1)
+    } else if (!answer.isCorrect) {
+      setAttemptsState(prevState => prevState - 1)
+    }
+  }
+
   const nextButton = <button className={`${answerState ? 'block' : 'hidden'} btn-next`}
                                   onClick={handleNextButtonClick}>NEXT</button>
 
@@ -48,35 +58,39 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
 
   const finishElements = (
     <>
-      <div className="finish-message">Wow! No more questions left! Press Finish to see your final score!</div>
+      <div className="finish-message">Wow! No more questions left! Press<span className="finish-emphasized">FINISH</span>
+        to see your final score!
+      </div>
+      {finishButton}
     </>
   )
   const quizElements = (
     <>
-      <div className="quiz-score">Current Score: {scoreState}</div>
+    <div style={attemptsState === 0 ? { visibility: 'hidden' } : {visibility: "visible"}}
+         className="quiz-score">Current Score: {scoreState}</div>
       <div className="quiz-content">
 
             <div className="quiz-lyrics">Lyrics:</div>
             <div className="lyrics-current">{currentQuestion.lyrics}</div>
             <div className="quiz-answers">Answers:</div>
-            <div className="answers-variants">{allQuestions.length ? currentQuestion.answers.map((answer: Answer) => {
+            <div className="answers-variants">
+              {allQuestions.length && currentQuestion.answers.map((answer: Answer) => {
+
               return <AnswerButton
                 key={answer.id}
                 answer={answer}
                 answerState={answerState}
-                setAnswerState={setAnswerState}
-                setScoreState={setScoreState}
-                setAttemptsState={setAttemptsState}/>
-            }) : null}
+                handleAnswerButtonClick={()=>handleAnswerButtonClick(answer)}
+              />
+            })}
             </div>
         {allQuestions.length && attemptsState ? nextButton : finishButton}
         {allQuestions.length && attemptsState ? <div className="attempts-message">Attempts left: {attemptsState}</div> :
           <div className="attempts-message">
             <div>Sadly no more attempts left!</div>
-            <div>Press <span className="attempts-emphasized">FINISH</span> to see your final score:</div>
+            <div>Press <span className="finish-emphasized">FINISH</span> to see your final score</div>
           </div>
       }
-
       </div>
     </>
   )
@@ -85,4 +99,8 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
         {allQuestions.length > 0 ? quizElements : finishElements}
       </>
       )
-      }
+  }
+
+
+
+

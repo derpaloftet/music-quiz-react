@@ -1,11 +1,11 @@
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import './App.css'
 import Intro from "./components/Intro.tsx"
 import Quiz from "./components/Quiz.tsx"
 import Outro from "./components/Outro.tsx"
-import Confetti from "react-confetti"
 import Genre from "./components/Genre.tsx";
-
+import Confetti from "react-confetti"
+import {GenreKeys} from "./types.ts";
 
 enum Page {
   INTRO = "INTRO",
@@ -30,19 +30,21 @@ function App() {
   const [currentPage, setCurrentPage] = useState(Page.INTRO)
   const [scoreState, setScoreState] = useState(0)
   const [musicData, setMusicData] = useState([] as MusicData[])
-  // todo: add genre
 
-  useEffect(() => {
-    // todo: use genre
-    async function getMusicData(): Promise<MusicData[]> {
-      const res = await fetch("./src/assets/pop1990Songs.json")
-      return await res.json() as MusicData[]
-    }
-//./src/assets/indieRockSongs.json
-    //./src/assets/pop1990Songs.json
-    getMusicData().then((data) => setMusicData(data))
-  }, [])
+  const dataPath: Record<GenreKeys, string> = {
+    indieRock: "./src/assets/indieRockSongs.json",
+    pop2000: "./src/assets/pop2000Songs.json",
+    popPunk: "./src/assets/popPunkSongs.json",
+    pop1990: "./src/assets/pop1990Songs.json",
+  }
 
+  async function handleButtonGenreClick(genre: GenreKeys): Promise<void> {
+    const genreUrl = dataPath[genre]
+    const response = await fetch(genreUrl)
+    const result = await response.json() as MusicData[]
+    setMusicData(result)
+    setCurrentPage(Page.QUIZ)
+  }
   let content
 
   switch (currentPage) {
@@ -50,7 +52,7 @@ function App() {
       content = <Intro buttonClick={() => setCurrentPage(Page.GENRE)}/>
       break
     case Page.GENRE:
-      content = <Genre buttonClick={() => setCurrentPage(Page.QUIZ)}/>
+      content = <Genre buttonGenreClick={handleButtonGenreClick}/>
       break
     case Page.QUIZ:
       content = <Quiz
@@ -65,7 +67,7 @@ function App() {
         scoreState={scoreState}
         buttonClickPlayAgain={() => {
           setScoreState(0)
-          setCurrentPage(Page.QUIZ)
+          setCurrentPage(Page.GENRE)
         }}
       />
   }

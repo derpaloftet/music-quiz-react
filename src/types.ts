@@ -1,0 +1,1 @@
+export type GenreKeys = "indieRock" | "pop2000" | "popPunk" | "pop1990";

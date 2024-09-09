@@ -7,7 +7,7 @@ export default function Outro({scoreState, buttonClickPlayAgain} : {scoreState: 
         <span>You've finished</span>
         <span>the quiz!</span>
       </h1>
-      <div className="quiz-score">Your Final Score: {scoreState}</div>
+      <div className="outro-message">Your Final Score: {scoreState}</div>
       <button className="btn-basic" onClick={buttonClickPlayAgain}>PLAY AGAIN</button>
     </>
   )
