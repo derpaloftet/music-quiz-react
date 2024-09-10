@@ -7,13 +7,12 @@ html, body {
   height: 100%;
   margin: 0 auto;
   text-align: center;
-  background-color: burlywood;
+  background-color: #5286BF;
 }
 
 body {
   background-image: url("src/images/abstract_background.jpg");
   background-size: 350%;
-
   background-position: bottom;
   background-repeat: no-repeat;
   font-family: 'Karla', sans-serif;
@@ -110,8 +109,7 @@ body {
   font-size: 1em;
   font-weight: bold;
   color: #2F3C4A;
-  margin-top: .8em;
-  margin-bottom: .8em;
+  /*margin-bottom: .8em;*/
 }
 .quiz-score {
   display: inline-block;
@@ -134,8 +132,10 @@ body {
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
   padding: 1.2em;
-  height: 530px;
+  height: 520px;
   width: 500px;
+  justify-content: space-evenly;
+  gap: .2em;
 }
 .lyrics-current {
   font-size: 1.1em;
@@ -144,10 +144,12 @@ body {
   font-weight: bold;
   padding: .7em 1em;
 }
-.quiz-lyrics, .quiz-answers {
+.quiz-lyrics {
   font-family: 'Nerko One', 'sans-serif';
-  font-size: 1.5em;
-  color: #061F56;
+  font-size: 2.5em;
+  color: #EFBC6B;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
 }
 .btn-next {
   @apply inline-block rounded-full bg-amber-900 text-blue-200 hover:text-gray-300 focus:outline-none focus:ring active:text-opacity-75;
@@ -155,6 +157,9 @@ body {
 }
 .btn-answer {
   @apply inline-block rounded bg-slate-500 px-8 py-3 text-base font-medium text-slate-50 transition hover:scale-110 hover:shadow-xl focus:outline-none focus:ring active:bg-slate-500;
+}
+.skipped-attempts-img{
+  width: 70%;
 }
 
 /*Finish Quiz*/
@@ -177,24 +182,30 @@ body {
 
 /* Desktop */
 
-@media(min-width: 760px) {
-
+@media(min-width: 1000px) {
   body {
     width: 70%;
-    background-color: cadetblue;
-    flex-direction: row;
-  }
-  .quiz-answers{
-    display: flex;
-    flex-direction: row;
-  }
-  .intro-header, .outro-header {
-
-
   }
   .intro-header span, .outro-header span {
     display: inline-block;
     white-space: nowrap;
   }
-
+  .quiz-content {
+    padding: 1.2em;
+    height: 600px;
+    width: 38em;
+  }
+  .btn-next{
+    padding: .9em 1.8em;
+    font-size: 1.2em;
+  }
+  .lyrics-current {
+    font-size: 1.4em;
+  }
+  .quiz-lyrics {
+    font-size: 3em;
+  }
+  .btn-answer, .attempts-message{
+    font-size: 1.2em;
+  }
 }

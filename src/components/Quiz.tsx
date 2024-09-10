@@ -28,19 +28,25 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
   }
 
   function handleNextButtonClick(): void {
-    // no questions left
-    if (allQuestions.length > 0) {
-      setAllQuestions((prevState: MusicData[]) => prevState.filter(el => el.id !== currentQuestion.id))
-      setAnsweredId(0)
-    }
-    // skipping the question without answering
     if (answeredId === 0) {
-      setAttemptsState(prevState => prevState - 1)
+      // skipping the question without answering
+      if (attemptsState === 1) {
+        // skipping with the last attempt
+        setAttemptsState((prevState: number) => prevState - 1)
+      } else if (attemptsState > 1) {
+        // skipping with more than 1 attempt
+        setAttemptsState((prevState: number) => prevState - 1)
+        goToNextQuestion()
+      }
+    } else if (allQuestions.length > 0) {
+      // some questions left
+      goToNextQuestion()
     }
-    // all attempts used - GAME OVER
-    if (attemptsState === 0) {
-      setAllQuestions([])
-    }
+  }
+
+  function goToNextQuestion() {
+    setAllQuestions((prevState: MusicData[]) => prevState.filter(el => el.id !== currentQuestion.id))
+    setAnsweredId(0)
   }
 
   function handleAnswerButtonClick(answer: Answer): void {
@@ -67,25 +73,34 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
       {finishButton}
     </>
   )
+
+  const skippedLastAttempt = attemptsState === 0 && answeredId === 0
+  const someAttemptsLeft = allQuestions.length && attemptsState > 0
   const quizElements = (
     <>
       <div style={attemptsState === 0 ? {visibility: 'hidden'} : {visibility: "visible"}}
            className="quiz-score">Current Score: {scoreState}</div>
       <div className="quiz-content">
-        <div className="quiz-lyrics">Lyrics:</div>
-        <div className="lyrics-current">{currentQuestion.lyrics}</div>
-        <div className="quiz-answers">Answers:</div>
-        <div className="answers-variants">
-          {allQuestions.length && currentQuestion.answers.map((answer: Answer) => {
-            return <AnswerButton
-              key={answer.id}
-              answer={answer}
-              answeredId={answeredId}
-              handleAnswerButtonClick={() => handleAnswerButtonClick(answer)}
-            />
-          })}
-        </div>
-        {allQuestions.length && attemptsState ?
+        { skippedLastAttempt ?
+          <>
+            <img className="skipped-attempts-img" src="src/images/sad_cat.jpg" alt="The picture of a sad cat"/>
+          </>
+          :
+        <>
+                <div className="quiz-lyrics">Lyrics:</div>
+                <div className="lyrics-current">{currentQuestion.lyrics}</div>
+                <div className="answers-variants">
+                  {allQuestions.length && currentQuestion.answers.map((answer: Answer) => {
+                    return <AnswerButton
+                      key={answer.id}
+                      answer={answer}
+                      answeredId={answeredId}
+                      handleAnswerButtonClick={() => handleAnswerButtonClick(answer)}
+                    />
+                  })}
+                </div>
+            </> }
+        { someAttemptsLeft ?
           <>
             <div className="attempts-message">Attempts left: {attemptsState}</div>
             {nextButton}
@@ -108,7 +123,5 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
     </>
   )
 }
-
-
 
 
