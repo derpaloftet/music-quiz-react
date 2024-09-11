@@ -108,7 +108,7 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
           :
           <>
             <div className="attempts-message">
-              <div>Sadly no more attempts left!</div>
+              <div className="attempts-finish">Sadly no more attempts left!</div>
               <div>Press <span className="finish-emphasized">FINISH</span> to see your final score</div>
             </div>
             {finishButton}
