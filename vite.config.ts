@@ -7,4 +7,8 @@ export default defineConfig({
   server: {
     port: 2012,
   },
+  build: {
+    outDir: './dist',
+    emptyOutDir: true,
+  }
 })

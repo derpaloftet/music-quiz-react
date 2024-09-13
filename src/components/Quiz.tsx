@@ -1,7 +1,12 @@
 import {useEffect, useState} from "react";
 import AnswerButton from "./AnswerButton.tsx"
-import {Answer, MusicData} from "../types.ts";
+import {Answer, MusicData} from "../types.ts"
+import sadCat from "../images/sad_cat.jpg"
 
+function getSelectedQuestion(allQuestions: MusicData[]): MusicData {
+  const randomNumber = Math.floor(Math.random() * allQuestions.length)
+  return allQuestions[randomNumber]
+}
 
 export default function Quiz({musicData, buttonClickFinish, scoreState, setScoreState}:
                                {
@@ -12,20 +17,15 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
                                }) {
 
   const [allQuestions, setAllQuestions] = useState(musicData)
-  const [currentQuestion, setCurrentQuestion] = useState(() => getSelectedQuestion())
+  const [currentQuestion, setCurrentQuestion] = useState(() => getSelectedQuestion(musicData))
   const [answeredId, setAnsweredId] = useState(0)
   const [attemptsState, setAttemptsState] = useState(3)
 
   useEffect(() => {
     if (allQuestions.length > 0) {
-      setCurrentQuestion(getSelectedQuestion())
+      setCurrentQuestion(getSelectedQuestion(allQuestions))
     }
   }, [allQuestions])
-
-  function getSelectedQuestion(): MusicData {
-    const randomNumber = Math.floor(Math.random() * allQuestions.length)
-    return allQuestions[randomNumber]
-  }
 
   function handleNextButtonClick(): void {
     if (answeredId === 0) {
@@ -58,70 +58,84 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
     }
   }
 
-  const nextButton = <button className={`${answeredId ? 'block' : 'hidden'} btn-next`}
+  const renderNextButton = <button className={`${answeredId ? 'block' : 'hidden'} btn-next`}
                              onClick={handleNextButtonClick}>NEXT</button>
 
-  const finishButton = <button className="btn-basic"
+  const renderFinishButton = <button className="btn-basic"
                                onClick={buttonClickFinish}>FINISH</button>
 
-  const finishElements = (
+  const renderFinishElements = (
     <>
       <div className="finish-message">Wow! No more questions left! Press<span
         className="finish-emphasized">FINISH</span>
         to see your final score!
       </div>
-      {finishButton}
+      {renderFinishButton}
     </>
   )
 
   const skippedLastAttempt = attemptsState === 0 && answeredId === 0
-  const someAttemptsLeft = allQuestions.length && attemptsState > 0
-  const quizElements = (
+  const hasAttemptsLeft = attemptsState > 0
+  const hasQuestionsLeft = allQuestions.length > 0
+
+  const renderQuizContent = (
     <>
-      <div style={attemptsState === 0 ? {visibility: 'hidden'} : {visibility: "visible"}}
-           className="quiz-score">Current Score: {scoreState}</div>
-      <div className="quiz-content">
-        { skippedLastAttempt ?
-          <>
-            <img className="skipped-attempts-img" src="src/images/sad_cat.jpg" alt="The picture of a sad cat"/>
-          </>
-          :
-        <>
-                <div className="quiz-lyrics">Lyrics:</div>
-                <div className="lyrics-current">{currentQuestion.lyrics}</div>
-                <div className="answers-variants">
-                  {allQuestions.length && currentQuestion.answers.map((answer: Answer) => {
-                    return <AnswerButton
-                      key={answer.id}
-                      answer={answer}
-                      answeredId={answeredId}
-                      handleAnswerButtonClick={() => handleAnswerButtonClick(answer)}
-                    />
-                  })}
-                </div>
-            </> }
-        { someAttemptsLeft ?
-          <>
-            <div className="attempts-message">Attempts left: {attemptsState}</div>
-            {nextButton}
-          </>
-          :
-          <>
-            <div className="attempts-message">
-              <div className="attempts-finish">Sadly no more attempts left!</div>
-              <div>Press <span className="finish-emphasized">FINISH</span> to see your final score</div>
-            </div>
-            {finishButton}
-          </>
-        }
+      <div className="quiz-lyrics">Lyrics:</div>
+      <div className="lyrics-current">{currentQuestion.lyrics}</div>
+      <div className="answers-variants">
+        {allQuestions.length && currentQuestion.answers.map((answer: Answer) => {
+          return <AnswerButton
+            key={answer.id}
+            answer={answer}
+            answeredId={answeredId}
+            handleAnswerButtonClick={() => handleAnswerButtonClick(answer)}
+          />
+        })}
       </div>
     </>
   )
+
+  const renderSkippedAttemptsImage = (
+    <>
+      <img className="skipped-attempts-img" src={sadCat} alt="The picture of a sad cat"/>
+    </>
+  )
+
+  const renderAttemptsMessage = (
+    <>
+      <div className="attempts-message">Attempts left: {attemptsState}</div>
+      {renderNextButton}
+    </>
+  )
+
+  const renderNoAttemptsMessage = (
+    <>
+      <div className="attempts-message">
+        <div className="attempts-finish">Sadly no more attempts left!</div>
+        <div>Press <span className="finish-emphasized">FINISH</span> to see your final score</div>
+      </div>
+      {renderFinishButton}
+    </>
+  )
+
   return (
     <>
-      {allQuestions.length > 0 ? quizElements : finishElements}
+      {
+          hasQuestionsLeft ? (
+          <>
+            <div className="quiz-score"
+                 style={{visibility: hasAttemptsLeft ? 'visible' : 'hidden'}}>
+              Current Score: {scoreState}
+            </div>
+            <div className="quiz-content">
+              {skippedLastAttempt ? renderSkippedAttemptsImage : renderQuizContent}
+              {hasAttemptsLeft ? renderAttemptsMessage : renderNoAttemptsMessage}
+            </div>
+          </>
+        ) : (
+            renderFinishElements
+          )
+      }
     </>
   )
 }
-
-

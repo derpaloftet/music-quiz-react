@@ -577,7 +577,7 @@ html, body {
 }
 
 body {
-  background-image: url("src/images/abstract_background.jpg");
+  background-image: url("../abstract_background.jpg");
   background-size: 350%;
   background-position: bottom;
   background-repeat: no-repeat;

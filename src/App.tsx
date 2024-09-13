@@ -3,9 +3,13 @@ import './App.css'
 import Intro from "./components/Intro.tsx"
 import Quiz from "./components/Quiz.tsx"
 import Outro from "./components/Outro.tsx"
-import Genre from "./components/Genre.tsx";
+import Genre from "./components/Genre.tsx"
 import Confetti from "react-confetti"
-import {GenreKeys, MusicData} from "./types.ts";
+import {GenreKeys, MusicData} from "./types.ts"
+import indieRock from "./assets/indieRockSongs.json"
+import pop2000 from "./assets/pop2000Songs.json"
+import popPunk from "./assets/popPunkSongs.json"
+import pop1990 from "./assets/pop1990Songs.json"
 
 enum Page {
   INTRO = "INTRO",
@@ -19,23 +23,17 @@ function App() {
   const [scoreState, setScoreState] = useState(0)
   const [musicData, setMusicData] = useState([] as MusicData[])
 
-  const dataPath: Record<GenreKeys, string> = {
-    indieRock: "./src/assets/indieRockSongs.json",
-    pop2000: "./src/assets/pop2000Songs.json",
-    popPunk: "./src/assets/popPunkSongs.json",
-    pop1990: "./src/assets/pop1990Songs.json",
+  const dataPath: Record<GenreKeys, MusicData[]> = {
+    indieRock: indieRock,
+    pop2000: pop2000,
+    popPunk: popPunk,
+    pop1990: pop1990,
   }
 
-  async function handleButtonGenreClick(genre: GenreKeys): Promise<void> {
-    const genreUrl = dataPath[genre]
-    try {
-      const response = await fetch(genreUrl)
-      const result = await response.json() as MusicData[]
-      setMusicData(result)
-      setCurrentPage(Page.QUIZ)
-    } catch (error) {
-      console.error("Error fetching music data:", error)
-    }
+  function handleButtonGenreClick(genre: GenreKeys): void {
+    const result = dataPath[genre]
+    setMusicData(result)
+    setCurrentPage(Page.QUIZ)
   }
 
   let content
