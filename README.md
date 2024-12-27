@@ -24,7 +24,7 @@ npx tailwindcss -i ./src/App.css -o ./src/output.css --watch
 
 ## Technical Overview
 
-The World of Sourdough is built using **React** and **TypeScript**. Core Features:
+The Music Quiz is built using **React** and **TypeScript**. Core Features:
 
 **Components**:
 
@@ -39,11 +39,11 @@ The World of Sourdough is built using **React** and **TypeScript**. Core Feature
 
 **State Management**:
 
-`useState` to handle pages, scores, attempts and genre data dynamically.
+- `useState` to handle pages, scores, attempts and genre data dynamically.
 
 **Randomized Question Selection**:
 
-Questions are selected randomly from the chosen genre's dataset, ensuring variability and replay value.
+- Questions are selected randomly from the chosen genre's dataset, ensuring variability and replay value.
 
 **Visual Design**:
 
