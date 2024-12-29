@@ -56,6 +56,14 @@ The Music Quiz is built using **React** and **TypeScript**. Core Features:
 - Disabled answer buttons after a selection ensures no double-clicking or unintended inputs.
 - Immediate feedback helps players stay engaged and confident about their progress.
 
+**Testing with Playwright**
+
+- Page Navigation Verification: Ensures each page renders correctly and displays the expected UI elements.
+- Quiz Functionality Testing: Validates randomized question generation, correct scoring logic and proper handling of incorrect answers, attempts, and skipped questions.
+- Edge Cases: Tests behavior when all attempts are used up or questions are skipped, ensuring proper handling of "no more questions" scenarios and accurate final score display.
+- Replayability: Checks the ability to restart the quiz after completing a session, returning users to the genre selection page.
+
 ---
 
 Music Quiz is the perfect activity to test your knowledge and discover new music along the way. Play, learn, and have fun!
+
