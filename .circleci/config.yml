@@ -14,9 +14,11 @@ jobs:
       - run:
           command: npm run lint
       - run:
-          command: npm test
+          command: npx playwright install --with-deps
       - run:
-          command: npm build
+          command: npm run test
+      - run:
+          command: npm run build
 
 workflows:
   build:
