@@ -27,6 +27,11 @@ jobs:
       - run:
           command: npx playwright install --with-deps
       - run:
+          command: npm run dev &
+      - run:
+          name: Wait for Server
+          command: npx wait-on http://localhost:2012
+      - run:
           command: npm run test
 
 workflows:
