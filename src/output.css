@@ -765,8 +765,7 @@ body {
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
   border-radius: 8px;
   padding: 1.2em;
-  height: 520px;
-  width: 500px;
+  height: 570px;
   justify-content: space-evenly;
   gap: .2em;
 }
