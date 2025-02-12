@@ -1,0 +1,39 @@
+version: 2.1
+
+executors:
+  node_image:
+    docker:
+      - image: cimg/node:22.13.1
+  playwright:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.50.1-noble
+
+jobs:
+  build:
+    executor: node_image
+    steps:
+      - checkout
+      - run:
+          command: npm ci
+      - run:
+          command: npm run lint
+      - run:
+          command: npm run build
+  test:
+    executor: playwright
+    steps:
+      - checkout
+      - run:
+          command: npm ci
+      - run:
+          command: npm run test-install-dependencies
+      - run:
+          command: npm run test
+
+workflows:
+  build:
+    jobs:
+      - build
+      - test
+
+
