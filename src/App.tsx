@@ -31,8 +31,8 @@ function App() {
   }
 
   function handleButtonGenreClick(genre: GenreKeys): void {
-    const result = dataPath[genre]
-    setMusicData(result)
+    const dataForSingleGenre = dataPath[genre]
+    setMusicData(dataForSingleGenre)
     setCurrentPage(Page.QUIZ)
   }
 

@@ -4,7 +4,7 @@ interface GenreProps {
   buttonClickGenre: (genre: GenreKeys) => void;
 }
 
-export default function ({buttonClickGenre}: GenreProps) {
+export default function Genre({ buttonClickGenre }: GenreProps) {
 
   return (
     <>
