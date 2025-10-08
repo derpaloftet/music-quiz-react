@@ -74,7 +74,7 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
     </>
   )
 
-  const skippedLastAttempt = attemptsState === 0 && answeredId === 0
+  const skippedLastQuestion = attemptsState === 0 && answeredId === 0
   const hasAttemptsLeft = attemptsState > 0
   const hasQuestionsLeft = allQuestions.length > 0
 
@@ -87,7 +87,7 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
           return <AnswerButton
             key={answer.id}
             answer={answer}
-            answeredId={answeredId}
+            clickedAnsweredId={answeredId}
             handleAnswerButtonClick={() => handleAnswerButtonClick(answer)}
           />
         })}
@@ -128,7 +128,7 @@ export default function Quiz({musicData, buttonClickFinish, scoreState, setScore
               Current Score: {scoreState}
             </div>
             <div className="quiz-content">
-              {skippedLastAttempt ? renderSkippedAttemptsImage : renderQuizContent}
+              {skippedLastQuestion ? renderSkippedAttemptsImage : renderQuizContent}
               {hasAttemptsLeft ? renderAttemptsMessage : renderNoAttemptsMessage}
             </div>
           </>

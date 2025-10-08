@@ -1,35 +1,27 @@
 import {Answer} from "../types.ts";
 
-export default function AnswerButton({answeredId, answer, handleAnswerButtonClick}:
+export default function AnswerButton({clickedAnsweredId, answer, handleAnswerButtonClick}:
                                        {
-                                         answeredId: number,
+                                         clickedAnsweredId: number,
                                          answer: Answer,
                                          handleAnswerButtonClick: () => void
                                        }) {
 
   let classNameColor: string;
-  if (!answeredId) {
+  if (!clickedAnsweredId) {
     // nothing is clicked
     classNameColor = "answer-default";
-  } else if (answeredId === answer.id) {
+  } else if (clickedAnsweredId === answer.id) {
     // clicked button
-    if (answer.isCorrect) {
-      classNameColor = "answer-correct";
-    } else {
-      classNameColor = "answer-wrong";
-    }
+    classNameColor = answer.isCorrect ? "answer-correct" : "answer-wrong";
   } else {
-    // unclicked buttons
-    if (answer.isCorrect) {
-      classNameColor = "answer-correct";
-    } else {
-      classNameColor = "answer-default";
-    }
+    // not clicked buttons
+    classNameColor = answer.isCorrect ? "answer-correct" : "answer-default";
   }
 
   return <button key={answer.id}
                  className={`btn-answer ${classNameColor}`}
-                 disabled={answeredId !== 0}
+                 disabled={clickedAnsweredId !== 0}
                  onClick={handleAnswerButtonClick}
   >
     {answer.songName}
