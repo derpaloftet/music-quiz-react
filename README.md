@@ -59,6 +59,11 @@ The Music Quiz is built using **React** and **TypeScript**. Core Features:
 - Edge Cases: Tests behavior when all attempts are used up or questions are skipped, ensuring proper handling of "no more questions" scenarios and accurate final score display.
 - Replayability: Checks the ability to restart the quiz after completing a session, returning users to the genre selection page.
 
+**Deployment & CI/CD**:
+
+- Continuous Integration: Set up with CircleCI for automated testing and builds on every commit.
+- Deployment: Automatically deployed to Netlify on successful builds.
+
 ---
 
 Music Quiz is the perfect activity to test your knowledge and discover new music along the way. Play, learn, and have fun!
