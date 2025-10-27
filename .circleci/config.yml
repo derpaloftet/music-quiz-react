@@ -19,6 +19,8 @@ jobs:
           command: npm run lint
       - run:
           command: npm run build
+      - run:
+          command: npm run lhci
   test:
     executor: playwright
     steps:
