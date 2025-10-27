@@ -4,7 +4,7 @@ export default function Outro({scoreState, buttonClickPlayAgain}: {
 }) {
   return (
     <>
-      <img className="main-image" src="vinylDrawing.png" alt="Vinyl image"/>
+      <img className="main-image" src="vinylDrawing.webp" alt="Vinyl image"/>
       <h1 className="outro-header">
         <span>You've finished</span>
         <span>the quiz!</span>

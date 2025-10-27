@@ -8,7 +8,7 @@ export default function Genre({ buttonClickGenre }: GenreProps) {
 
   return (
     <>
-      <img className="genre-image" src="vinylDrawing.png" alt="Vinyl image"/>
+      <img className="genre-image" src="vinylDrawing.webp" alt="Vinyl image"/>
       <h1 className="genre-message">
         Choose a category:
       </h1>
