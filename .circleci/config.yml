@@ -19,8 +19,6 @@ jobs:
           command: npm run lint
       - run:
           command: npm run build
-      - run:
-          command: npm run lhci
   test:
     executor: playwright
     steps:
@@ -31,7 +29,8 @@ jobs:
           command: npm run test-install-dependencies
       - run:
           command: npm run test
-
+      - run:
+          command: npm run lhci
 workflows:
   build:
     jobs:
