@@ -8,6 +8,9 @@ executors:
     docker:
       - image: mcr.microsoft.com/playwright:v1.50.1-noble
 
+orbs:
+  browser-tools: circleci/browser-tools@2.3.1
+
 jobs:
   build:
     executor: node_image
@@ -19,6 +22,8 @@ jobs:
           command: npm run lint
       - run:
           command: npm run build
+      - browser-tools/install_chrome:
+          timeout: 2m
       - run:
           command: npm run lhci
   test:
